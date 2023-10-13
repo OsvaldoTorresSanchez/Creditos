@@ -1,0 +1,68 @@
+﻿@model ML.Credito
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2> GetAll</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md- offset-11 ">
+            @Html.ActionLink(" ", "Form", "Credtio", new { @class = "btn btn-success bi bi-person-plus-fill" })
+
+        </div>
+    </div>
+    @if (Model.Creditos != null)
+    {
+
+        <div class="row">
+            <div class="col-md-11">
+                <div>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>Editar</th>
+                                <th>NumeroCredito</th>
+                                <th>ImporteCredito</th>
+                                <th>PLazo</th>
+                                <th>TasaAnual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ML.Credito credito in Model.Creditos)
+                            {
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>@credito.NumeroCredito</td>
+                                    <td>@credito.ImporteCredito</td>
+                                    <td>@credito.PLazo</td>
+                                    <td>@credito.TasaAnual</td>
+
+                                    <td>
+                                        <a class="btn btn-danger bi bi-trash"
+                                           href="@Url.Action("Delete", "Credito", new {credito = credito.NumeroCredito})"
+                                           onclick="return confirm('estas seguro que deseas eliminar este registro? ');">
+
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+    }
+
+</div>

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Creditos.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Credito">
+          <Key>
+            <PropertyRef Name="NumeroCredito" />
+          </Key>
+          <Property Name="NumeroCredito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImporteCredito" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Plazo" Type="int" />
+          <Property Name="TasaAnual" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Function Name="CreditoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ImporteCredito" Type="decimal" Mode="In" />
+          <Parameter Name="Plazo" Type="int" Mode="In" />
+          <Parameter Name="TasaAnual" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="CreditoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeroCredito" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CreditoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CreditoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeroCredito" Type="int" Mode="In" />
+          <Parameter Name="ImporteCredito" Type="decimal" Mode="In" />
+          <Parameter Name="Plazo" Type="int" Mode="In" />
+          <Parameter Name="TasaAnual" Type="decimal" Mode="In" />
+        </Function>
+        <EntityContainer Name="CreditosStoreContainer">
+          <EntitySet Name="Credito" EntityType="Self.Credito" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Creditos" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="CreditosContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Creditoes" EntityType="Creditos.Credito" />
+          <FunctionImport Name="CreditoAdd">
+            <Parameter Name="ImporteCredito" Mode="In" Type="Decimal" />
+            <Parameter Name="Plazo" Mode="In" Type="Int32" />
+            <Parameter Name="TasaAnual" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="CreditoDelete">
+            <Parameter Name="NumeroCredito" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CreditoGetAll" ReturnType="Collection(Creditos.CreditoGetAll_Result)" />
+          <FunctionImport Name="CreditoUpdate">
+            <Parameter Name="NumeroCredito" Mode="In" Type="Int32" />
+            <Parameter Name="ImporteCredito" Mode="In" Type="Decimal" />
+            <Parameter Name="Plazo" Mode="In" Type="Int32" />
+            <Parameter Name="TasaAnual" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Credito">
+          <Key>
+            <PropertyRef Name="NumeroCredito" />
+          </Key>
+          <Property Name="NumeroCredito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImporteCredito" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Plazo" Type="Int32" />
+          <Property Name="TasaAnual" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <ComplexType Name="CreditoGetAll_Result">
+          <Property Type="Int32" Name="NumeroCredito" Nullable="false" />
+          <Property Type="Decimal" Name="ImporteCredito" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Plazo" Nullable="true" />
+          <Property Type="Decimal" Name="TasaAnual" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Creditos" />
+        <Alias Key="Target" Value="Creditos.Store" />
+        <EntityContainerMapping CdmEntityContainer="CreditosContainer" StorageEntityContainer="CreditosStoreContainer">
+          <EntitySetMapping Name="Creditoes">
+            <EntityTypeMapping TypeName="Creditos.Credito">
+              <MappingFragment StoreEntitySet="Credito">
+                <ScalarProperty Name="TasaAnual" ColumnName="TasaAnual" />
+                <ScalarProperty Name="Plazo" ColumnName="Plazo" />
+                <ScalarProperty Name="ImporteCredito" ColumnName="ImporteCredito" />
+                <ScalarProperty Name="NumeroCredito" ColumnName="NumeroCredito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreditoAdd" FunctionName="Creditos.Store.CreditoAdd" />
+          <FunctionImportMapping FunctionImportName="CreditoDelete" FunctionName="Creditos.Store.CreditoDelete" />
+          <FunctionImportMapping FunctionImportName="CreditoGetAll" FunctionName="Creditos.Store.CreditoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Creditos.CreditoGetAll_Result">
+                <ScalarProperty Name="NumeroCredito" ColumnName="NumeroCredito" />
+                <ScalarProperty Name="ImporteCredito" ColumnName="ImporteCredito" />
+                <ScalarProperty Name="Plazo" ColumnName="Plazo" />
+                <ScalarProperty Name="TasaAnual" ColumnName="TasaAnual" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreditoUpdate" FunctionName="Creditos.Store.CreditoUpdate" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
